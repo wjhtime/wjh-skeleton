@@ -9,6 +9,7 @@ class IndexController
 
     public function index(Request $request, Response $response)
     {
+        var_dump($request);
         return $response->withStatus(500)->write('hahaha');
     }
 

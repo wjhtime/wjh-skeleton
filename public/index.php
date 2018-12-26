@@ -3,18 +3,13 @@
 define('APP_ROOT', dirname(__DIR__). '/');
 
 require APP_ROOT. 'vendor/autoload.php';
-
+$config = require APP_ROOT. 'app/config/config.php';
 
 use Slim\App;
 
-
-$config = [
-    'settings' => [
-        'displayErrorDetails' => false,
-        'view_dir' => APP_ROOT. 'app/templates'
-    ]
-];
-$app = new App($config);
+$app = new App([
+    'settings' => $config
+]);
 $container = $app->getContainer();
 
 require APP_ROOT. 'app/routes/web.php';
@@ -30,9 +25,14 @@ $container['logger'] = function ($c) {
 
 // 数据库连接
 $container['db'] = function ($c) {
-    $db = $c['settings']['db'];
+    $capsule = new \Illuminate\Database\Capsule\Manager();
+    $capsule->addConnection($c['settings']['db']);
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+    return $capsule;
 };
 
+// 视图
 $container['view'] = function ($c) {
     return new \Slim\Views\PhpRenderer($c['settings']['view_dir']);
 };
