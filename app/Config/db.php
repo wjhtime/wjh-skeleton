@@ -3,7 +3,7 @@ return [
     'dev' => [
         'driver' => 'mysql',
         'host' => 'localhost',
-        'database' => 'database',
+        'database' => 'python',
         'username' => 'root',
         'password' => 'root',
         'charset'   => 'utf8',
