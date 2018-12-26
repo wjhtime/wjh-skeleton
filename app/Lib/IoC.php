@@ -20,7 +20,7 @@ class IoC
         return $this->ci->get($key);
     }
 
-    public function get($className, ...$args)
+    public function makeClass($className, ...$args)
     {
         $index = md5($className . json_encode($args));
         if (isset($this->instanceBag[$index]) && $this->instanceBag[$index] !== NULL) {

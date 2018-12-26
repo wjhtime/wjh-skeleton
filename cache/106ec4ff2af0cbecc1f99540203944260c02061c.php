@@ -9,6 +9,11 @@
 </head>
 <body>
 <h1>hello world</h1>
-<?php echo $router->pathFor('home')?>
+
+</a>
+<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <?php echo e(dd($item)); ?>
+
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </body>
 </html>

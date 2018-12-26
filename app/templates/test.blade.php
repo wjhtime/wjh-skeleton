@@ -8,8 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-<?php foreach($data as $item) {
-    var_dump($item);
-}?>
+<h1>hello world</h1>
+
+</a>
+@foreach ($data as $item)
+    {{ dd($item) }}
+@endforeach
 </body>
 </html>

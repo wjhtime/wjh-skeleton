@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use App\Lib\IoC;
 use App\Model\Renting;
-use Psr\Container\ContainerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -12,8 +11,9 @@ class HouseController extends IoC
 
     public function index(Request $request, Response $response)
     {
-        $rent = $this->get(Renting::class);
-        return $this->view->render($response, 'houseList.phtml', ['data' => $rent->getList()]);
+        $rent = $this->makeClass(Renting::class);
+//        return $this->view->view()->make('houseList', ['data' => $rent->getList()])->render();
+        return $this->view->view()->make('test', ['data' => $rent->getList()])->render();
 //        return $response->withJson($rent->getList());
     }
 
