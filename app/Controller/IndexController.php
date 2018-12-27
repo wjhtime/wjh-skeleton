@@ -1,22 +1,22 @@
 <?php
 namespace App\Controller;
 
+use App\Lib\IoC;
 use Psr\Container\ContainerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class IndexController
+class IndexController extends IoC
 {
-
-    protected $ci;
 
     public function __construct(ContainerInterface $ci)
     {
-        $this->ci = $ci;
+        parent::__construct($ci);
     }
 
     public function index(Request $request, Response $response)
     {
+//        echo $this->redis->get('name');
         return $response->withStatus(500)->write('hahaha');
     }
 

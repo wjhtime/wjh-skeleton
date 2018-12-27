@@ -40,4 +40,22 @@ $container['view'] = function ($c) {
 //    return new \Slim\Views\PhpRenderer($c['config']['app']['view_dir']);
 };
 
+// redis
+$container['redis'] = function ($c) {
+    return new \Predis\Client($c['config']['db']['redis']);
+};
+
+$container['mailer'] = function ($c) {
+    $transport = new \Swift_SmtpTransport($c['config']['mail']['host'], $c['config']['mail']['port']);
+    $transport->setUsername($c['config']['mail']['username'])->setPassword($c['config']['mail']['password']);
+    $mailer = new \Swift_Mailer($transport);
+
+    return $mailer;
+};
+
+$container['notFoundHandler'] = function () {
+    return test();
+};
+
+
 return $container;
