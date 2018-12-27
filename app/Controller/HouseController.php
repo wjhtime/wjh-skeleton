@@ -36,4 +36,12 @@ class HouseController extends IoC
 //        return $response->withJson($rent->getList());
     }
 
+    public function ajaxGetHouseDetail(Request $request, Response $response)
+    {
+        $info = $this->makeClass(Renting::class)->getDetailById($request->getQueryParam('id'));
+        return $response->withJson($info);
+    }
+
+
+
 }

@@ -145,8 +145,8 @@
             var url = a.data('href');
             var id = a.data('id');
             $.ajax({
-                type : "post",
-                url : "{{ $config['app']['base_url'] }}ajax-get-house-detail",
+                type : "get",
+                url : "{{ $config['app']['base_url'] }}house/ajax-get-house-detail",
                 data : "id=" + id,
                 async : true,
                 success : function(res){

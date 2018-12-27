@@ -43,6 +43,11 @@ class Renting extends IoC
         ];
     }
 
+    public function getDetailById($id)
+    {
+        return $this->db->table(self::TABLE)->where('id', $id)->first();
+    }
+
 
     
 }

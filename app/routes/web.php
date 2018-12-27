@@ -1,6 +1,8 @@
 <?php
+use App\Controller\HouseController;
+use App\Controller\IndexController;
 
-$app->get('/index', \App\Controller\IndexController::class. ':index');
-$app->get('/house/index', \App\Controller\HouseController::class. ':index');
+$app->get('/index', IndexController::class. ':index');
+$app->get('/house/index', HouseController::class. ':index');
 
-//$app->
+$app->get('/house/ajax-get-house-detail', HouseController::class. ':ajaxGetHouseDetail');
