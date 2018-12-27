@@ -10,7 +10,7 @@
 <body>
 <h1>hello world</h1>
 
-</a>
+<a href=""></a>
 @foreach ($data as $item)
     {{ dd($item) }}
 @endforeach

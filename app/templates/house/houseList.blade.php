@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>房源检索</title>
-    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/tagcloud.min.css">
+    <link rel="stylesheet" href="{{ $config['app']['base_url'] }}bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ $config['app']['base_url'] }}css/tagcloud.min.css">
 
 </head>
 <body>
@@ -12,9 +12,6 @@
     <div class="container">
         <ul class="nav navbar-nav">
             <li><a href="/house/list">房源列表</a></li>
-            @if (env('APP_ENV')!='production')
-                <li><a href="/analysis">数据分析</a></li>
-            @endif
             <li><a href="http://www.wjhokey.top">另一个网站</a></li>
         </ul>
         {{--<ul class="nav navbar-nav navbar-right">
@@ -44,26 +41,30 @@
                     <a href="javascript:;" class="list-group-item" data-id="{{ $house->id }}" data-href="{{ $house->url }}" data-toggle="modal" data-target="#myModal">
                         @if (mb_strlen($house->title) > 47) {{ mb_substr($house->title, 0, 47) }}... @else {{ $house->title }} @endif
                         <span class="badge">{{ $house->created_at }}</span>
-                        @if ($house->if_has_images)
+                        @if (isset($house->if_has_images))
                             <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
                         @endif
                     </a>
                 @endforeach
             </div>
-            {{ $houses->appends($search)->render() }}
+            <ul class="pagination">
+                @for ($i=1; $i<= $pageNum; $i++)
+                    @if ($page == $i)
+                    <li class="active"><span>{{ $i }}</span></li>
+                    @else
+                    <li><a href="{{ $config['app']['base_url'] }}house/index?page={{ $i }}">{{ $i }}</a></li>
+                    @endif
+                @endfor
+            </ul>
+
         </div>
 
         <div class="col-md-3">
-            {{--<img src="https://v3.bootcss.com/assets/img/tanzhouedu.png" width="220">--}}
             <div>
                 <div class="tagcloud">
                     @include('house.tagCloud')
                 </div>
             </div>
-            <ul class="nav">
-                {{--<li><a href="">1111</a></li>--}}
-                {{--<li><a href="">1111</a></li>--}}
-            </ul>
         </div>
 
     </div>
@@ -93,9 +94,9 @@
 
 
 
-<script src="{{ asset("plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
-<script src="{{ asset('bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/tagcloud.min.js') }}"></script>
+<script src="{{ $config['app']['base_url'] }}plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="{{ $config['app']['base_url'] }}bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="{{ $config['app']['base_url'] }}js/tagcloud.min.js"></script>
 
 
 
@@ -109,10 +110,10 @@
 
 
 
-<link href="{{ asset('plugins/datepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet"
+<link href="{{ $config['app']['base_url'] }}plugins/datepicker/bootstrap-datetimepicker.min.css" rel="stylesheet"
       type="text/css"/>
-<script src="{{ asset('plugins/datepicker/bootstrap-datetimepicker.js') }}" type="text/javascript"></script>
-<script src="{{ asset('plugins/datepicker/locales/bootstrap-datetimepicker.zh-CN.js') }}"
+<script src="{{ $config['app']['base_url'] }}plugins/datepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="{{ $config['app']['base_url'] }}plugins/datepicker/locales/bootstrap-datetimepicker.zh-CN.js"
         type="text/javascript"></script>
 <script>
     $(function () {
@@ -145,7 +146,7 @@
             var id = a.data('id');
             $.ajax({
                 type : "post",
-                url : "{{ url('ajax-get-house-detail') }}",
+                url : "{{ $config['app']['base_url'] }}ajax-get-house-detail",
                 data : "id=" + id,
                 async : true,
                 success : function(res){
