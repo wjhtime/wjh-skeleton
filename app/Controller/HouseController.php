@@ -25,6 +25,7 @@ class HouseController extends IoC
 
         $data = $this->makeClass(Renting::class)->getList($params);
         return $this->view->view()->make('house.houseList', [
+            'search' => $params,
             'houses' => $data['houses'],
             'total' => $data['total'],
             'page' => $params['page'] ?? 0,
