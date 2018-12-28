@@ -37,7 +37,6 @@ $container['db'] = function ($c) {
 // 视图
 $container['view'] = function ($c) {
     return new Blade($c['config']['app']['view_dir'], $c['config']['app']['cache_dir']);
-//    return new \Slim\Views\PhpRenderer($c['config']['app']['view_dir']);
 };
 
 // redis
@@ -45,9 +44,12 @@ $container['redis'] = function ($c) {
     return new \Predis\Client($c['config']['db']['redis']);
 };
 
+// 邮件
 $container['mailer'] = function ($c) {
-    $transport = new \Swift_SmtpTransport($c['config']['mail']['host'], $c['config']['mail']['port']);
-    $transport->setUsername($c['config']['mail']['username'])->setPassword($c['config']['mail']['password']);
+    $mailConfig = $c['config']['mail'];
+    $transport = new \Swift_SmtpTransport($mailConfig['host'], $mailConfig['port']);
+    $transport->setUsername($mailConfig['username'])
+              ->setPassword($mailConfig['password']);
     $mailer = new \Swift_Mailer($transport);
 
     return $mailer;
