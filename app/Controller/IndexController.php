@@ -24,7 +24,7 @@ class IndexController extends IoC
 //        $result = $this->mailer->send($message);
 //        dd($result);
 //        echo $this->redis->get('name');
-        return $response->withStatus(500)->write('hahaha');
+        return $response->withStatus(200)->write('hahaha');
     }
 
 }

@@ -1,6 +1,5 @@
 <?php
-use Slim\App;
-
+// 命令行
 define('APP_ROOT', __DIR__. '/');
 
 require APP_ROOT. 'vendor/autoload.php';

@@ -56,7 +56,15 @@ $container['mailer'] = function ($c) {
 };
 
 $container['notFoundHandler'] = function () {
-    return test();
+    die('not found');
+};
+
+$container['phpErrorHandler'] = function () {
+    die('php_error');
+};
+
+$container['errorHandler'] = function () {
+    die('error');
 };
 
 
