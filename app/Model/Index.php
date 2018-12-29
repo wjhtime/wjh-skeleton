@@ -3,12 +3,11 @@ namespace App\Model;
 
 
 use App\Lib\IoC;
-use Psr\Container\ContainerInterface;
 
-class Renting extends IoC
+class Index extends IoC
 {
 
-    const TABLE = 'renting';
+    const TABLE = 'table';
 
     const PAGE_SIZE = 20;
 
@@ -49,5 +48,5 @@ class Renting extends IoC
     }
 
 
-    
+
 }

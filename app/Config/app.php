@@ -1,5 +1,7 @@
 <?php
 return [
+    // dev, live
+    'env' => 'dev',
     // 应用名称
     'app_name' => 'wjh',
     // 视图目录

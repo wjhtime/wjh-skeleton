@@ -36,7 +36,17 @@ $container['db'] = function ($c) {
 
 // 视图
 $container['view'] = function ($c) {
-    return new Blade($c['config']['app']['view_dir'], $c['config']['app']['cache_dir']);
+    $view = new \Slim\Views\Twig($c['config']['app']['view_dir'], [
+//        'cache' => $c['config']['app']['cache_dir'],
+    ]);
+
+    $router = $c->get('router');
+    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
+    return $view;
+
+
+//    return new Blade($c['config']['app']['view_dir'], $c['config']['app']['cache_dir']);
 };
 
 // redis
@@ -55,17 +65,17 @@ $container['mailer'] = function ($c) {
     return $mailer;
 };
 
-$container['notFoundHandler'] = function () {
-    die('not found');
-};
-
-$container['phpErrorHandler'] = function () {
-    die('php_error');
-};
-
-$container['errorHandler'] = function () {
-    die('error');
-};
+//$container['notFoundHandler'] = function () {
+//    die('not found');
+//};
+//
+//$container['phpErrorHandler'] = function () {
+//    die('php_error');
+//};
+//
+//$container['errorHandler'] = function () {
+//    die('error');
+//};
 
 
 return $container;
