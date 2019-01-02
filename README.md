@@ -6,7 +6,8 @@
 ## Quick Start
 ```php
 1. composer install
-2. 
+2. cd wjh-skeleton
+3. php -S localhost:8080 -t public
 ```
 
 ## CHANGELOG
