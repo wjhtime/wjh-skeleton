@@ -3,7 +3,6 @@ use Slim\Container;
 use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
 use Illuminate\Database\Capsule\Manager;
-use Philo\Blade\Blade;
 
 $config = require APP_ROOT . 'app/Config/config.php';
 
