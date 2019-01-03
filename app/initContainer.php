@@ -3,6 +3,7 @@ use Slim\Container;
 use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
 use Illuminate\Database\Capsule\Manager;
+use App\Lib\Handlers\Error;
 
 $config = require APP_ROOT . 'app/Config/config.php';
 
@@ -35,17 +36,7 @@ $container['db'] = function ($c) {
 
 // 视图
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig($c['config']['app']['view_dir'], [
-//        'cache' => $c['config']['app']['cache_dir'],
-    ]);
-
-    $router = $c->get('router');
-    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
-    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
-    return $view;
-
-
-//    return new Blade($c['config']['app']['view_dir'], $c['config']['app']['cache_dir']);
+    return new \Philo\Blade\Blade($c['config']['app']['view_dir'], $c['config']['app']['cache_dir']);
 };
 
 // redis
@@ -67,14 +58,25 @@ $container['mailer'] = function ($c) {
 //$container['notFoundHandler'] = function () {
 //    die('not found');
 //};
-//
-//$container['phpErrorHandler'] = function () {
-//    die('php_error');
-//};
-//
-//$container['errorHandler'] = function () {
-//    die('error');
-//};
 
+$container['phpErrorHandler'] = function ($c) {
+    $bool = false;
+    if ($c['config']['app']['debug'] === TRUE) {
+        $bool = true;
+    }
+    $error = new Error($bool);
+    $error->setContainer($c);
+    return $error;
+};
+
+$container['errorHandler'] = function ($c) {
+    $bool = false;
+    if ($c['config']['app']['debug'] === TRUE) {
+        $bool = true;
+    }
+    $error = new Error($bool);
+    $error->setContainer($c);
+    return $error;
+};
 
 return $container;

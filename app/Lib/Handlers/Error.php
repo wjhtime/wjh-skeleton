@@ -1,14 +1,22 @@
 <?php
 namespace App\Lib\Handlers;
 
+use App\Lib\Mail;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Container;
 use Slim\Handlers\AbstractError;
 use Slim\Http\Body;
 use UnexpectedValueException;
 
 class Error extends AbstractError
 {
+
+    /**
+     * @var Container $container
+     */
+    protected $container;
+
     /**
      * Invoke error handler
      *
@@ -43,6 +51,15 @@ class Error extends AbstractError
 
         $body = new Body(fopen('php://temp', 'r+'));
         $body->write($output);
+
+        // 发送错误邮件
+        if ($this->container['config']['app']['error_send_mail']) {
+            $msg = Mail::msg('异常',
+                $this->container['config']['app']['error_mail'],
+                $this->container['config']['app']['error_mail'],
+                $body);
+            $this->container->mailer->send($msg);
+        }
 
         return $response
             ->withStatus(500)
@@ -190,4 +207,10 @@ class Error extends AbstractError
     {
         return sprintf('<![CDATA[%s]]>', str_replace(']]>', ']]]]><![CDATA[>', $content));
     }
+
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+    }
+
 }

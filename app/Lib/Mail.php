@@ -4,10 +4,10 @@ namespace App\Lib;
 class Mail
 {
 
-    public static function msg($subject, $to, $body)
+    public static function msg($subject, $from, $to, $body)
     {
         $message = new \Swift_Message($subject);
-        $message->setFrom('from@163.com')
+        $message->setFrom($from)
                 ->setTo($to)
                 ->setBody($body);
         return $message;
