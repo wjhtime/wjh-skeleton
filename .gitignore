@@ -1,5 +1,3 @@
 /log/*
 /test.php
 /cache/*
-/app/Config/mail.php
-/app/Config/db.php

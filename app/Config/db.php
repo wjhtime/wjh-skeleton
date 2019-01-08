@@ -4,7 +4,7 @@ return [
     'dev' => [
         'driver' => 'mysql',
         'host' => 'localhost',
-        'database' => 'python',
+        'database' => '',
         'username' => 'root',
         'password' => 'root',
         'charset'   => 'utf8',
