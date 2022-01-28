@@ -20,5 +20,5 @@ class IndexController extends IoC
             'title' => 'hello world'
         ])->render();
     }
-
+ 
 }
